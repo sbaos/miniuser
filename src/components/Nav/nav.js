@@ -6,7 +6,7 @@ import { FaHome } from "react-icons/fa";
 
 function BasicExample() {
   return (
-    <Navbar bg="dark" fixed="top" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
+    <Navbar bg="dark"  data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
       <Container>
         {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
