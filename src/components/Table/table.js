@@ -10,7 +10,10 @@ import _, { debounce } from 'lodash';
 import { FaArrowDownLong,FaArrowUpLong,FaCirclePlus } from "react-icons/fa6";
 import { FaFileUpload,FaFileDownload } from "react-icons/fa";
 import { CSVLink, CSVDownload } from "react-csv";
+import Papa from "papaparse";
+
 import './table.scss'
+import { toast } from 'react-toastify';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 function BasicExample(props) {
     const id = useRef(30);
@@ -128,6 +131,60 @@ function BasicExample(props) {
       setDataExport(result);
       done();
   }
+  const handleImportcsv = (event) => {
+    if(event.target?.files && event.target.files[0]){
+      let file = event.target.files[0];
+      if(file.type!=="text/csv"){
+        toast.error("File is not valid");
+        return;
+      }
+      console.log(file)
+      if(+file.size>3000){
+        toast.error("File is out of size");
+        return;
+      }
+      let ans = [];
+      Papa.parse(file, {
+        // header: true,
+        complete: function(results) {
+          let rawCSV = results.data;
+          if(rawCSV[0].length===3){
+            if( rawCSV[0][0]!=='email'
+              ||rawCSV[0][1]!=='first_name'
+              ||rawCSV[0][2]!=='last_name'
+            ) {
+              toast.error("Format is wrong");
+            }else{
+              
+              rawCSV.map((e,index)=>{
+                if(index>0 && e.length===3){
+                  let obj = {};
+                  obj.email = e[0];
+                  obj.first_name = e[1];
+                  obj.last_name = e[2];
+                  ans.push(obj);
+                }
+              });
+              // Papa.parse(file,{
+              //   header: true,
+              //   complete: function(results) {
+              //     ans=rawCSV;
+              //   }
+              // })
+              setUsers(ans);
+              toast.success("Import file success");
+            }
+
+          }else
+          toast.error("File is not valid");
+          // console.log("Finished:", results.data);
+        }
+      });
+
+   
+    }
+   
+  }
   return (
     <>
         <div className='my-3 d-flex justify-content-between table-container' style={{alignItems:'center'}}>
@@ -140,7 +197,9 @@ function BasicExample(props) {
                 <FaFileUpload ></FaFileUpload>
                 Import
               </label>
-              <input type='file' id='import-csv' hidden/>
+              <input type='file' id='import-csv' hidden
+              onChange={(event)=>handleImportcsv(event)}
+              />
               {/* <button className='btn btn-success'>
                 <FaFileUpload className='icon-react'></FaFileUpload>
                 Import
