@@ -1,0 +1,31 @@
+.table-container{
+    .field-name{
+        // div{
+        display: flex;
+        justify-content: space-between;
+        // }
+      }
+      
+      .group-btns{
+        display: flex;
+        gap: 5px;
+        
+        label{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-react{
+            // display: flex!important;
+            // justify-content: center!important;
+            // justify-self: center!important;
+            // align-items: center!important;
+            padding: 0;
+            position: relative;
+            right: 2px;
+            bottom: 2px;
+
+          }
+      }
+}

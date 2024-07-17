@@ -7,8 +7,10 @@ import Modal from '../modal/modalAddNewUsers'
 import ModalEditUser from '../modal/modalEditUser';
 import ModalDeleteUser from '../modal/modalDeleteUser.js';
 import _, { debounce } from 'lodash';
-import { FaArrowDownLong,FaArrowUpLong } from "react-icons/fa6";
-
+import { FaArrowDownLong,FaArrowUpLong,FaCirclePlus } from "react-icons/fa6";
+import { FaFileUpload,FaFileDownload } from "react-icons/fa";
+import { CSVLink, CSVDownload } from "react-csv";
+import './table.scss'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 function BasicExample(props) {
     const id = useRef(30);
@@ -28,6 +30,7 @@ function BasicExample(props) {
     const [sortby,setSortby] = useState('asc');
 
     const [keywork,setKeywork] = useState('');
+    const [dataExport,setDataExport] = useState([]);
     function handleAddNewUser (){
       setShow(true);
     }
@@ -41,32 +44,6 @@ function BasicExample(props) {
     setUsers(t.data);
   };
 
-  const addUser = async (name,email) => {
-    // window.alert(name,email);
-    axios.post('users?page=1', {
-      id: id.current++ +'',
-      email: email,
-      first_name: name,
-      last_name: name,
-      avatar: ""
-    })
-    .then(function (response) {
-      console.log(response);
-      getUsers(1);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  };
-  const r = useRef();
-  const remove =  async () => {
-    
-    axios.delete(`/${r.current.value}`)
-    .then(function (response) {
-      console.log(response);
-      getUsers(1);
-    })
-  }
   const handlePageClick = (e)=>{
     getUsers(+e.selected+1);
     // console.log((+e.selected+1));
@@ -80,7 +57,6 @@ function BasicExample(props) {
   function handleEditUser(user){
     setDataUserEdit(user);
     setShowEdit(true);
-    
     handleEditUserFromModal();
   }
 
@@ -129,14 +105,64 @@ function BasicExample(props) {
     }else{
       getUsers();
     }
-  },500)
+  },500);
+  const csvData = [
+    ["firstname", "lastname", "email"],
+    ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ["Raed", "Labes", "rl@smthing.co.com"],
+    ["Yezzi", "Min l3b", "ymin@cocococo.com"]
+  ];
+  const getUsersExport = (event, done) =>{
+      let result = [];
+      if(users && users.length > 0){
+        result.push(["Id","Email","First name","Last name"]);
+        users.map((item,index) => {
+          let arr = [];
+          arr[0] = item.id;
+          arr[1] = item.email;
+          arr[2] = item.first_name;
+          arr[3] = item.last_name;
+          result.push(arr);
+        });
+      }
+      setDataExport(result);
+      done();
+  }
   return (
     <>
-        <div className='my-3 d-flex justify-content-between' style={{alignItems:'center'}}>
+        <div className='my-3 d-flex justify-content-between table-container' style={{alignItems:'center'}}>
             <span><b>
             List users
             </b></span>
-            <button className='btn btn-success' onClick={()=>setShow(true)}>Add User</button>
+           
+            <div className='my-3 group-btns'>
+              <label htmlFor='import-csv' className='btn btn-success'>
+                <FaFileUpload ></FaFileUpload>
+                Import
+              </label>
+              <input type='file' id='import-csv' hidden/>
+              {/* <button className='btn btn-success'>
+                <FaFileUpload className='icon-react'></FaFileUpload>
+                Import
+              </button> */}
+              <CSVLink 
+              data={dataExport}
+              filename={"my-file.csv"}
+              onClick={getUsersExport}
+              asyncOnClick={true}
+              className="btn btn-primary">
+                <FaFileDownload className='icon-react'></FaFileDownload>
+                Export
+              </CSVLink>
+              {/* <CSVDownload data={csvData} target="_blank" />; */}
+              <button 
+              className='btn btn-success' 
+              onClick={()=>setShow(true)}>
+                <FaCirclePlus className='icon-react'>
+                </FaCirclePlus>
+                <span>Add User</span>
+              </button>
+            </div>
         </div>
         <div className='col-5 my-3'>
             <input 
