@@ -83,7 +83,7 @@ function BasicExample(props) {
     setShowDelete(true);
     setDataUserDelete(user);
   }
-  useEffect(()=>{
+  useEffect(() => {
     console.log(dataUserEdit);
   })
   const handleDeleteUserFromModal = (user) => {
@@ -189,7 +189,7 @@ function BasicExample(props) {
   }
   return (
     <>
-      <div className='my-3 d-flex justify-content-between table-container' style={{ alignItems: 'center' }}>
+      <div className='my-3 d-sm-flex justify-content-between table-container' style={{ alignItems: 'center' }}>
         <span><b>
           List users
         </b></span>
@@ -202,10 +202,6 @@ function BasicExample(props) {
           <input type='file' id='import-csv' hidden
             onChange={(event) => handleImportcsv(event)}
           />
-          {/* <button className='btn btn-success'>
-                <FaFileUpload className='icon-react'></FaFileUpload>
-                Import
-              </button> */}
           <CSVLink
             data={dataExport}
             filename={"my-file.csv"}
@@ -215,7 +211,6 @@ function BasicExample(props) {
             <FaFileDownload className='icon-react'></FaFileDownload>
             Export
           </CSVLink>
-          {/* <CSVDownload data={csvData} target="_blank" />; */}
           <button
             className='btn btn-success'
             onClick={() => setShow(true)}>
@@ -225,7 +220,7 @@ function BasicExample(props) {
           </button>
         </div>
       </div>
-      <div className='col-5 my-3'>
+      <div className='col-12 col-sm-4 my-3 '>
         <input
           type='text'
           className='form-control'
@@ -234,55 +229,57 @@ function BasicExample(props) {
           onChange={(e) => { handleSearch(e) }}
         />
       </div>
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>
-              <div className='id-name field-name'>
-                <div>
-                  ID
+      <div className='table-customize'>
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>
+                <div className='id-name field-name'>
+                  <div>
+                    ID
+                  </div>
+                  <div className='arrow'>
+                    <FaArrowDownLong onClick={() => { handleSort('desc', 'id'); }} />
+                    <FaArrowUpLong onClick={() => { handleSort('asc', 'id'); }} />
+                  </div>
                 </div>
-                <div className='arrow'>
-                  <FaArrowDownLong onClick={() => { handleSort('desc', 'id'); }} />
-                  <FaArrowUpLong onClick={() => { handleSort('asc', 'id'); }} />
+              </th>
+              <th>First Name</th>
+              <th>
+                <div className='lastname-name field-name'>
+                  <div>
+                    Last Name
+                  </div>
+                  <div className='arrow'>
+                    <FaArrowDownLong onClick={() => { handleSort('desc', 'last_name'); }} />
+                    <FaArrowUpLong onClick={() => { handleSort('asc', 'last_name'); }} />
+                  </div>
                 </div>
-              </div>
-            </th>
-            <th>First Name</th>
-            <th>
-              <div className='lastname-name field-name'>
-                <div>
-                  Last Name
-                </div>
-                <div className='arrow'>
-                  <FaArrowDownLong onClick={() => { handleSort('desc', 'last_name'); }} />
-                  <FaArrowUpLong onClick={() => { handleSort('asc', 'last_name'); }} />
-                </div>
-              </div>
-            </th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((e, index) => {
-            return <tr className='row-m' key={`users-${index}`} onClick={(e) => { hselect(e) }}>
-              <td>{e.id < 10 ? '0' + e.id : e.id}</td>
-              <td>{e.first_name}</td>
-              <td>{e.last_name}</td>
-              <td>{e.email}</td>
-              <td>
-                <button
-                  className='btn btn-warning mx-3'
-                  onClick={() => { handleEditUser(e) }}
-                >Edit</button>
-                <button className='btn btn-danger' onClick={() => { handleDeleteUser(e) }}>Delete</button>
-              </td>
+              </th>
+              <th>Email</th>
+              <th>Action</th>
             </tr>
-          })}
+          </thead>
+          <tbody>
+            {users.map((e, index) => {
+              return <tr className='row-m' key={`users-${index}`} onClick={(e) => { hselect(e) }}>
+                <td>{e.id < 10 ? '0' + e.id : e.id}</td>
+                <td>{e.first_name}</td>
+                <td>{e.last_name}</td>
+                <td>{e.email}</td>
+                <td>
+                  <button
+                    className='btn btn-warning mx-1 mx-sm-3'
+                    onClick={() => { handleEditUser(e) }}
+                  >Edit</button>
+                  <button className='btn btn-danger m-1 m-sm-0' onClick={() => { handleDeleteUser(e) }}>Delete</button>
+                </td>
+              </tr>
+            })}
 
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      </div>
       <ReactPaginate
         nextLabel="next >"
         onPageChange={(e) => handlePageClick(e)}

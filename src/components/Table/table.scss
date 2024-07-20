@@ -1,26 +1,28 @@
 .field-name {
- 
+
     // div {
-        display: flex;
-        justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     // }
     // .arrow {
     //     position: absolute;
     //     // display: inline;
     // }
 }
+
 .table-container {
-    
-    
+
+
     .group-btns {
         display: flex;
         gap: 5px;
-        
+
         label {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .icon-react {
             // display: flex!important;
             // justify-content: center!important;
@@ -32,4 +34,12 @@
             bottom: 2px;
         }
     }
+}
+
+.table-customize {
+    overflow-x: auto;
+}
+
+.pagination {
+    justify-content: center;
 }

@@ -50,6 +50,11 @@ function Login() {
     const handleGoBack = () => {
         navigate('/');
     }
+    const handlePressEnter = (e) => {
+        if (e?.key + '' === 'Enter') {
+            handleLogin();
+        }
+    }
     return (<>
         <div className="login-container col-12 col-sm-4">
             <div className="title">Login</div>
@@ -66,6 +71,7 @@ function Login() {
                     className="form-control"
                     placeholder="Password"
                     value={password}
+                    onKeyDown={handlePressEnter}
                     onChange={(e) => setPasswork(e.target.value)}
                 />
 
