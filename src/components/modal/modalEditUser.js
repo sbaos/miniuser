@@ -28,7 +28,6 @@ function ModalEditUser(props) {
       dataUserEdit.first_name = fname;
       dataUserEdit.last_name = lname;
       dataUserEdit.email = email;
-      console.log(dataUserEdit);
       toast.success("Edit user success");
       // setDataUserEdit({...dataUserEdit,"first_name": fname,"last_name": lname,"email": email});
       handleClose();

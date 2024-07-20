@@ -1,22 +1,27 @@
-.table-container{
-    .field-name{
-        // div{
+.field-name {
+ 
+    // div {
         display: flex;
         justify-content: space-between;
-        // }
-      }
-      
-      .group-btns{
+    // }
+    // .arrow {
+    //     position: absolute;
+    //     // display: inline;
+    // }
+}
+.table-container {
+    
+    
+    .group-btns {
         display: flex;
         gap: 5px;
         
-        label{
+        label {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
-        .icon-react{
+        .icon-react {
             // display: flex!important;
             // justify-content: center!important;
             // justify-self: center!important;
@@ -25,7 +30,6 @@
             position: relative;
             right: 2px;
             bottom: 2px;
-
-          }
-      }
+        }
+    }
 }

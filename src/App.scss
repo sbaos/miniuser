@@ -14,3 +14,101 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.background {
+  height: 100vh;
+  width: 100vw;
+  // background-color: rgba(215, 32, 215, 0.6);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+
+  // background-color: gray;
+  .title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 23px;
+    padding-top: 30px;
+  }
+
+  .title-email {
+    text-align: left;
+    font-weight: 600;
+    padding-bottom: 3px;
+  }
+
+  input {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #1816230F;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #dedede;
+      // border: 2px solid black;
+      // margin-bottom: 19px;
+      // margin-top: -2px;
+    }
+  }
+
+  button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: gray;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    transition: 0.4s;
+
+    &:hover {
+      // background-color: gray;
+    }
+
+    &:active {
+      background-color: black;
+    }
+
+  }
+
+  button:disabled,
+  button[disabled] {
+    background-color: #cccccc;
+    cursor: not-allowed !important;
+  }
+
+  .btn-active {
+    background-color: red;
+  }
+
+  .back {
+    text-align: center;
+    padding-top: 30px;
+    cursor: pointer;
+
+    &:hover {}
+  }
+
+  .password-input {
+    position: relative;
+
+    .eye {
+      position: absolute;
+      top: 14px;
+      right: 10px;
+      display: none;
+      cursor: pointer;
+
+    }
+
+    .active {
+      display: inline-block;
+    }
+  }
+}
